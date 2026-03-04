@@ -1,0 +1,434 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primario: #fff;
+    --fondo: #fff0f6; 
+    --fondo-sobre: #ffd6e8; 
+    --solapa-sobre: #ffb3d9; 
+    --cuerpo-sobre: #ff99cc; 
+    --sombra: rgba(0, 0, 0, 0.2);
+    --texto: #2c3e50; 
+    --flor-sobre: #ff6bad; 
+}
+
+body {
+    background: var(--fondo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+    padding-bottom: 180px;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-family: "Marck Script", serif; 
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 50px;
+    color: #444;
+}
+
+.contenedor {
+    width: 400px;
+    position: relative;
+    z-index: 10;
+}
+
+.envoltura-sobre {
+    position: relative;
+    background-color: var(--fondo-sobre);
+    box-shadow: 0 0 40px var(--sombra);
+    border-radius: 15px;
+}
+
+.sobre {
+    position: relative;
+    width: 400px;
+    height: 300px;
+}
+
+.sobre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    border-top: 180px solid var(--solapa-sobre);
+    border-right: 200px solid transparent;
+    border-left: 200px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+    border-radius: 10px;
+}
+
+.solapa-derecha {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    background-color: var(--cuerpo-sobre);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.solapa-izquierda {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    background-color: var(--cuerpo-sobre);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.carta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primario);
+    text-align: center;
+    box-shadow: 0 0 5px var(--sombra);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform .5s ease-in-out;
+}
+
+.contenido {
+    font-family: "Gill Sans", Calibri, sans-serif;
+    color: var(--texto);
+    text-align: left;
+    font-size: 12px;
+    border: 3px dotted var(--texto);
+    padding: 10px;
+    height: 100%;
+    line-height: 14px;
+    cursor: pointer;
+    overflow-Y: scroll;
+}
+
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 35px;
+    height: 45px;
+    background: linear-gradient(135deg, #ff9ecd 0%, var(--flor-sobre) 100%);
+    border-radius: 50% 50% 0 0;
+    transform: translate(-50%, 0);
+    transition: all 0.5s ease-in-out 1s;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(255, 110, 173, 0.4);
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 45px;
+    background: linear-gradient(135deg, #ffb3d9 0%, #ff8dc4 100%);
+    border-radius: 50% 50% 0 0;
+}
+
+.corazon:before {
+    transform: rotate(-25deg);
+    left: -18px;
+}
+
+.corazon:after {
+    transform: rotate(25deg);
+    right: -18px;
+}
+
+/*Agregar clases dinamicos*/
+.abierto .sobre::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.abierto .corazon {
+    transform: translate(-50%, 0) scale(1.2) rotate(15deg);
+    transition-delay: 0.4s;
+}
+
+.carta.mostrar-carta {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.carta.cerrando-carta {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.carta.abierta {
+    z-index: 10000;
+}
+
+.envoltura-sobre.desactivar-sobre .sobre::before {
+    pointer-events: none;
+}
+
+/*Scroll personalizado*/
+
+/*
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--cuerpo-sobre);
+    border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--flor-sobre);
+}
+*/
+
+/*Decoración de flores*/
+.flores-decoracion {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 0 20px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.flor {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Tulipanes rosados */
+.tulipan .petalo {
+    width: 30px;
+    height: 40px;
+    background: linear-gradient(135deg, #ff9ecd 0%, #ff6bad 100%);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(255, 110, 173, 0.3);
+}
+
+.tulipan .petalo::before,
+.tulipan .petalo::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    background: linear-gradient(135deg, #ffb3d9 0%, #ff8dc4 100%);
+    border-radius: 50% 50% 0 0;
+}
+
+.tulipan .petalo::before {
+    transform: rotate(-25deg);
+    left: -15px;
+}
+
+.tulipan .petalo::after {
+    transform: rotate(25deg);
+    right: -15px;
+}
+
+.tulipan .tallo {
+    width: 4px;
+    height: 60px;
+    background: linear-gradient(to bottom, #5fb57a, #3d8b5f);
+    border-radius: 2px;
+}
+
+/* Rosas rojas */
+.rosa .petalos-rosa {
+    width: 35px;
+    height: 35px;
+    background: #dc143c;
+    border-radius: 50% 50% 0 50%;
+    transform: rotate(45deg);
+    position: relative;
+    box-shadow: 0 0 10px rgba(220, 20, 60, 0.4);
+}
+
+.rosa .petalos-rosa::before,
+.rosa .petalos-rosa::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #c41230;
+    border-radius: 50% 50% 0 50%;
+}
+
+.rosa .petalos-rosa::before {
+    transform: rotate(-90deg);
+    top: 0;
+    left: 0;
+}
+
+.rosa .petalos-rosa::after {
+    transform: rotate(90deg);
+    top: 0;
+    left: 0;
+}
+
+.rosa .centro {
+    width: 12px;
+    height: 12px;
+    background: #8b0000;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.rosa .tallo {
+    width: 4px;
+    height: 60px;
+    background: linear-gradient(to bottom, #5fb57a, #3d8b5f);
+    border-radius: 2px;
+}
+
+/* Posicionamiento individual */
+.tulipan-1 {
+    animation: sway 3s ease-in-out infinite;
+}
+
+.tulipan-2 {
+    animation: sway 3.5s ease-in-out infinite 0.5s;
+}
+
+.tulipan-3 {
+    animation: sway 3.2s ease-in-out infinite 1s;
+}
+
+.rosa-1 {
+    animation: sway 3.8s ease-in-out infinite 0.3s;
+}
+
+.rosa-2 {
+    animation: sway 3.3s ease-in-out infinite 0.8s;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+}
+
+/*Vista celular*/
+
+@media screen and (max-width:400px) {
+    body {
+        padding-bottom: 130px;
+    }
+    
+    .contenedor {
+        width: 300px;
+    }
+
+    .sobre {
+        width: 300px;
+        height: 250px;
+    }
+
+    .sobre::before {
+        border-top:150px solid var(--solapa-sobre) ;
+        border-right: 150px solid transparent;
+        border-left: 150px solid transparent;
+    }
+    
+    .flores-decoracion {
+        height: 100px;
+        padding: 0 10px;
+    }
+    
+    .tulipan .petalo {
+        width: 20px;
+        height: 30px;
+    }
+    
+    .tulipan .petalo::before,
+    .tulipan .petalo::after {
+        width: 20px;
+        height: 30px;
+    }
+    
+    .tulipan .petalo::before {
+        left: -10px;
+    }
+    
+    .tulipan .petalo::after {
+        right: -10px;
+    }
+    
+    .tulipan .tallo {
+        height: 40px;
+        width: 3px;
+    }
+    
+    .rosa .petalos-rosa {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .rosa .petalos-rosa::before,
+    .rosa .petalos-rosa::after {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .rosa .centro {
+        width: 10px;
+        height: 10px;
+        top: 8px;
+    }
+    
+    .rosa .tallo {
+        height: 40px;
+        width: 3px;
+    }
+
+}
+
+
+
+
+
+

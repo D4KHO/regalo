@@ -131,10 +131,10 @@ h1 {
     padding: 10px;
     height: 100%;
     line-height: 14px;
-    cursor: pointer;
+    cursor: default;
     overflow-Y: scroll;
     -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    user-select: text;
 }
 
 .corazon {

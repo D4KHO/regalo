@@ -2,6 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+*:focus {
+    outline: none;
 }
 
 :root {
@@ -46,12 +52,16 @@ h1 {
     background-color: var(--fondo-sobre);
     box-shadow: 0 0 40px var(--sombra);
     border-radius: 15px;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .sobre {
     position: relative;
     width: 400px;
     height: 300px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .sobre::before {
@@ -80,6 +90,8 @@ h1 {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .solapa-izquierda {
@@ -93,6 +105,8 @@ h1 {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .carta {
@@ -119,6 +133,8 @@ h1 {
     line-height: 14px;
     cursor: pointer;
     overflow-Y: scroll;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .corazon {
@@ -134,6 +150,9 @@ h1 {
     z-index: 999;
     cursor: pointer;
     box-shadow: 0 3px 12px rgba(255, 110, 173, 0.4);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
 }
 
 .corazon::before,
@@ -156,6 +175,15 @@ h1 {
     right: -18px;
 }
 
+.corazon:hover {
+    transform: translate(-50%, -5px);
+    box-shadow: 0 5px 15px rgba(255, 110, 173, 0.6);
+}
+
+.sobre:hover .corazon:not(.abierto .corazon) {
+    transform: translate(-50%, -5px) scale(1.05);
+}
+
 /*Agregar clases dinamicos*/
 .abierto .sobre::before {
     transform: rotateX(180deg);
@@ -163,18 +191,19 @@ h1 {
 }
 
 .abierto .corazon {
-    transform: translate(-50%, 0) scale(1.2) rotate(15deg);
-    transition-delay: 0.4s;
+    transform: translate(-50%, -20px) scale(0.8) rotate(360deg);
+    opacity: 0.7;
+    transition: all 0.5s ease-in-out 0.4s;
 }
 
 .carta.mostrar-carta {
     transform: translateY(-290px);
-    transition: transform .5s ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .carta.cerrando-carta {
-    transform: translateY(-290px);
-    transition: transform .5s ease-in-out;
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .carta.abierta {
